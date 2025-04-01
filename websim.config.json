@@ -1,0 +1,13 @@
+{
+  "world": {
+    "id": "april-fools-rickroll-2024",
+    "displayName": "April Fools Rickroll",
+    "description": "A collaborative April Fools' Day prank!",
+    "maxMembers": 50,
+    "initialRoomState": {
+       "rickrollTriggered": false,
+       "triggererId": null
+    }
+  }
+}
+

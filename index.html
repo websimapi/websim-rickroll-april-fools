@@ -1,0 +1,324 @@
+<html>
+<head>
+    <title>Rickroll April Fools!</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            overflow: hidden; /* Hide scrollbars */
+        }
+        .container {
+            text-align: center;
+            position: relative;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .video-container {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 10;
+            justify-content: center;
+            align-items: center;
+        }
+        iframe {
+            width: 80%;
+            max-width: 800px;
+            aspect-ratio: 16 / 9;
+        }
+        .peer-avatars {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .peer-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 0 5px rgba(0,0,0,0.5);
+        }
+        .dancing-rick {
+            position: absolute;
+            width: 100px; /* Adjust size as needed */
+            height: auto;
+            transform: translate(-50%, -50%);
+            pointer-events: none; /* Clicks go through the image */
+            animation: dance 1s infinite alternate ease-in-out;
+            z-index: 5; /* Below video, above button */
+        }
+
+        @keyframes dance {
+            0% { transform: translate(-50%, -50%) rotate(-10deg) translateY(-5px); }
+            100% { transform: translate(-50%, -50%) rotate(10deg) translateY(5px); }
+        }
+
+        /* Rick Astley SVG */
+        svg #Body { animation: bodywave 0.5s ease-in-out infinite alternate; }
+        svg #ArmLeft { animation: armleftwave 0.5s ease-in-out infinite alternate; transform-origin: top center;}
+        svg #ArmRight { animation: armrightwave 0.5s ease-in-out infinite alternate; transform-origin: top center;}
+        svg #Head { animation: headshake 0.7s ease-in-out infinite alternate; transform-origin: bottom center;}
+        svg #LegLeft { animation: legleftkick 0.5s ease-in-out infinite alternate; transform-origin: top center;}
+        svg #LegRight { animation: legrightkick 0.5s ease-in-out infinite alternate; transform-origin: top center;}
+
+        @keyframes bodywave {
+            from { transform: skewX(-2deg) translateX(-2px); }
+            to { transform: skewX(2deg) translateX(2px); }
+        }
+        @keyframes armleftwave {
+            from { transform: rotate(10deg) ; }
+            to { transform: rotate(-5deg) ; }
+        }
+         @keyframes armrightwave {
+            from { transform: rotate(-10deg) ; }
+            to { transform: rotate(5deg) ; }
+        }
+         @keyframes headshake {
+            from { transform: rotate(-5deg) ; }
+            to { transform: rotate(5deg) ; }
+        }
+        @keyframes legleftkick {
+            from { transform: translateY(0px) rotate(-3deg); }
+            to { transform: translateY(2px) rotate(3deg); }
+        }
+        @keyframes legrightkick {
+            from { transform: translateY(0px) rotate(3deg); }
+            to { transform: translateY(2px) rotate(-3deg); }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="peer-avatars" id="peerAvatars">
+        <!-- Peer avatars will be added here -->
+    </div>
+
+    <div class="container">
+        <h1>Ready for the most amazing realtime experience?</h1>
+        <button id="startButton">Click Me for Awesomeness!</button>
+        <div id="dancingRicks">
+            <!-- Dancing Ricks will appear here -->
+        </div>
+    </div>
+
+    <div class="video-container" id="videoContainer">
+        <iframe id="rickrollVideo"
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&controls=0&modestbranding=1&rel=0"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+        </iframe>
+    </div>
+
+    <!-- Rick Astley SVG for cursors -->
+    <svg width="100" height="150" viewbox="0 0 50 75" style="display: none;" id="rick-svg">
+        <g id="Rick">
+            <g id="LegRight">
+                <rect x="26" y="45" width="8" height="30" fill="#4a4a4a"/> <!-- Darker pants leg -->
+                <rect x="26" y="70" width="8" height="5" fill="#2a2a2a"/> <!-- Shoe -->
+            </g>
+            <g id="LegLeft">
+                <rect x="16" y="45" width="8" height="30" fill="#5a5a5a"/> <!-- Lighter pants leg -->
+                 <rect x="16" y="70" width="8" height="5" fill="#2a2a2a"/> <!-- Shoe -->
+            </g>
+             <g id="Body">
+                <rect x="15" y="20" width="20" height="30" fill="#f0f0f0"/> <!-- White Shirt -->
+                <rect x="13" y="20" width="24" height="15" fill="#333"/> <!-- Jacket -->
+                 <polygon points="25,20 15,35 35,35" fill="#f0f0f0"/> <!-- Shirt collar visible -->
+             </g>
+             <g id="ArmRight">
+                 <rect x="35" y="22" width="7" height="25" fill="#282828"/> <!-- Darker Jacket Arm -->
+             </g>
+             <g id="ArmLeft">
+                 <rect x="8" y="22" width="7" height="25" fill="#333"/> <!-- Jacket Arm -->
+             </g>
+            <g id="Head">
+                <circle cx="25" cy="10" r="10" fill="#ffcc99"/> <!-- Head -->
+                <rect x="22" y="15" width="6" height="5" fill="#ffcc99"/> <!-- Neck -->
+                <path d="M 18 5 Q 25 -2 32 5" stroke="#654321" stroke-width="2" fill="none"/> <!-- Hair -->
+                <circle cx="22" cy="9" r="1" fill="#000"/> <!-- Left Eye -->
+                <circle cx="28" cy="9" r="1" fill="#000"/> <!-- Right Eye -->
+                <path d="M 23 13 Q 25 14 27 13" stroke="#000" stroke-width="1" fill="none"/> <!-- Smile -->
+            </g>
+        </g>
+    </svg>
+
+    <script>
+        const room = new WebsimSocket(); // Provided globally
+
+        const startButton = document.getElementById('startButton');
+        const videoContainer = document.getElementById('videoContainer');
+        const rickrollVideo = document.getElementById('rickrollVideo');
+        const peerAvatarsContainer = document.getElementById('peerAvatars');
+        const dancingRicksContainer = document.getElementById('dancingRicks');
+        const rickSvgTemplate = document.getElementById('rick-svg');
+
+        let rickrolled = false;
+
+        // --- Websim Initialization ---
+        async function initializeWebsim() {
+            await room.initialize();
+
+            // Initial presence: not rickrolled yet, random position
+            room.updatePresence({
+                rickrolled: false,
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight
+            });
+
+            room.subscribePresence(handlePresenceUpdate);
+            room.subscribeRoomState(handleRoomStateUpdate);
+
+            // Handle mouse movement to update presence
+            document.addEventListener('mousemove', (event) => {
+                if (room.clientId) {
+                    room.updatePresence({
+                        x: event.clientX,
+                        y: event.clientY
+                    });
+                }
+            });
+
+            // Handle someone getting rickrolled (shared state)
+            startButton.addEventListener('click', () => {
+                // Update room state to indicate someone clicked the button
+                 room.updateRoomState({
+                    rickrollTriggered: true,
+                    triggererId: room.clientId // Store who triggered it (optional)
+                });
+                // Also update own presence immediately
+                 room.updatePresence({ rickrolled: true });
+                 triggerRickroll(); // Trigger locally immediately
+            });
+        }
+
+        // --- Rickroll Logic ---
+        function triggerRickroll() {
+            if (rickrolled) return; // Prevent multiple triggers locally
+            rickrolled = true;
+
+            videoContainer.style.display = 'flex';
+             // Attempt to play the video automatically
+             rickrollVideo.src = rickrollVideo.src + "&autoplay=1"; // Re-set src with autoplay
+
+            // Hide the button after clicking
+            startButton.style.display = 'none';
+
+             // Remove all dancing ricks if the video plays
+             dancingRicksContainer.innerHTML = '';
+        }
+
+        // --- Presence Handling ---
+        function handlePresenceUpdate(presence) {
+            // Update Peer Avatars display
+            updatePeerAvatars(room.peers);
+
+            // Update Dancing Ricks based on presence
+            updateDancingRicks(presence);
+        }
+
+        function updatePeerAvatars(peers) {
+            peerAvatarsContainer.innerHTML = ''; // Clear existing avatars
+            Object.values(peers).forEach(peer => {
+                const img = document.createElement('img');
+                img.src = peer.avatarUrl;
+                img.alt = peer.username;
+                img.title = peer.username;
+                img.classList.add('peer-avatar');
+                peerAvatarsContainer.appendChild(img);
+            });
+        }
+
+        function updateDancingRicks(presence) {
+             // Only show dancing ricks if the video isn't playing yet
+            if (rickrolled) {
+                 dancingRicksContainer.innerHTML = ''; // Clear ricks if video is playing
+                 return;
+             }
+
+            Object.entries(presence).forEach(([clientId, clientPresence]) => {
+                let rickElement = document.getElementById(`rick-${clientId}`);
+
+                if (!rickElement) {
+                    rickElement = rickSvgTemplate.cloneNode(true);
+                    rickElement.id = `rick-${clientId}`;
+                    rickElement.style.display = 'block'; // Make it visible
+                    rickElement.classList.add('dancing-rick');
+                    dancingRicksContainer.appendChild(rickElement);
+                }
+
+                // Position the Rick based on presence data
+                if (typeof clientPresence.x === 'number' && typeof clientPresence.y === 'number') {
+                    rickElement.style.left = `${clientPresence.x}px`;
+                    rickElement.style.top = `${clientPresence.y}px`;
+                }
+
+                 // Add avatar tooltip (optional)
+                 if(room.peers[clientId]) {
+                    rickElement.title = room.peers[clientId].username;
+                 }
+
+                 // Optionally: Change appearance if rickrolled
+                 // if (clientPresence.rickrolled) {
+                 //     rickElement.style.opacity = '0.5'; // Example: fade out if rickrolled
+                 // } else {
+                 //      rickElement.style.opacity = '1';
+                 // }
+            });
+
+            // Remove ricks for disconnected clients
+             const currentClientIds = Object.keys(presence);
+             Array.from(dancingRicksContainer.children).forEach(rickElement => {
+                 const clientId = rickElement.id.replace('rick-', '');
+                 if (!currentClientIds.includes(clientId)) {
+                     rickElement.remove();
+                 }
+             });
+        }
+
+
+        // --- Room State Handling ---
+         function handleRoomStateUpdate(roomState) {
+            // If the room state indicates a rickroll has been triggered by someone else
+            if (roomState.rickrollTriggered && !rickrolled) {
+                 triggerRickroll();
+                 // Optionally update own presence if triggered by room state
+                 room.updatePresence({ rickrolled: true });
+             }
+         }
+
+        // Start the connection
+        initializeWebsim();
+
+    </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"4c6229722a6346bc8eb5cb0e5eae5d41","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
