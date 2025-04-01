@@ -316,7 +316,23 @@
          }
 
         // Start the connection
-        initializeWebsim();
+        (async () => {
+            try {
+                await initializeWebsim();
+                console.log("Websim initialized successfully.");
+            } catch (error) {
+                console.error("Failed to initialize Websim:", error);
+                // Optionally display an error message to the user
+                const container = document.querySelector('.container');
+                if (container) {
+                    const errorMsg = document.createElement('p');
+                    errorMsg.textContent = "Oops! Could not connect to the awesome experience. Please try refreshing.";
+                    errorMsg.style.color = 'red';
+                    container.appendChild(errorMsg);
+                    startButton.disabled = true; // Disable button if connection fails
+                }
+            }
+        })();
 
     </script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"4c6229722a6346bc8eb5cb0e5eae5d41","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
